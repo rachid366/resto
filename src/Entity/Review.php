@@ -42,6 +42,17 @@ class Review
      */
     private $restaurant_id;
 
+    /**
+     * @param $id
+     */
+    public function __construct($id)
+    {
+        $this->id = $id;
+        $this->createdAt= new \DateTime('now');
+
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}all restaurants{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes("success") %}
+        <p class="alert alert-success">{{ message }}</p>
+        <br>
+    {% endfor %}
+    <table class="table" style="background-color: #5ed1e0">
+        <thead>
+        <tr>
+            <th scope="col">name</th>
+            <th scope="col">description</th>
+            <th scope="col">created at</th>
+            <th scope="col">city</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+
+                <td>{{ restaurant.getName() }}</td>
+                <td>{{ restaurant.getDescription() }}</td>
+                <td>{{ restaurant.getName() }}</td>
+                <td>{{ restaurant.getCityId().getName() }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

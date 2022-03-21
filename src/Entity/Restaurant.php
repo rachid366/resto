@@ -33,7 +33,7 @@ class Restaurant
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=city::class)
+     * @ORM\ManyToOne(targetEntity=City::class)
      */
     private $city_id;
 

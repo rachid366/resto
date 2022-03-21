@@ -33,7 +33,7 @@ class Review
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=uer::class)
+     * @ORM\ManyToOne(targetEntity=Uer::class)
      */
     private $uer_id;
 
@@ -41,17 +41,6 @@ class Review
      * @ORM\ManyToOne(targetEntity=Restaurant::class)
      */
     private $restaurant_id;
-
-    /**
-     * @param $id
-     */
-    public function __construct($id)
-    {
-        $this->id = $id;
-        $this->createdAt= new \DateTime('now');
-
-    }
-
 
     public function getId(): ?int
     {

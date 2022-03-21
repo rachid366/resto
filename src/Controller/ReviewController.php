@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Restaurant;
+use App\Entity\Uer;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,12 +14,17 @@ use App\Entity\Review;
 class ReviewController extends AbstractController
 {
     /**
-     * @Route("/review", name="app_review")
+     * @Route("/review", name="formulaire")
      */
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
+        //users
+        $users = $doctrine->getRepository(Uer::class)->findAll();
+        //restualts
+        $restaurants = $doctrine->getRepository(Restaurant::class)->findAll();
         return $this->render('review/index.html.twig', [
-            'controller_name' => 'ReviewController',
+            "users"=>$users,
+            "restaurants"=>$restaurants
         ]);
     }
 
@@ -26,18 +33,16 @@ class ReviewController extends AbstractController
      */
     public function addReview(Request $request,ManagerRegistry $doctrine)
     {
-        $entityManager = $doctrine->getManager();
         $review = new Review();
         $review->setMessage($request->get("message"));
         $review->setRating($request->get("rating"));
-        $review->setCreatedAt(new \DateTime());
-        $restaurant = $doctrine->getRepository(Restaurant::class)->find($request->get("restaurantId"));
-        $user = $doctrine->getRepository(User::class)->find($request->get("userId"));
-        $review->setRestaurantId($restaurant);
-        $review->setUserId($user);
-        $entityManager->persist($review);
-        $entityManager->flush();
-        $this->addFlash("success","Operation Successfully Completed");
-
+        $review->setCreatedAt(new \DateTimeImmutable());
+        $rest = $doctrine->getRepository(Restaurant::class)->find($request->get("restaurantId"));
+        $user = $doctrine->getRepository(Uer::class)->find($request->get("userId"));
+        $review->setRestaurantId($rest);
+        $review->setUerId($user);
+        $doctrine->getManager()->persist($review);
+        $doctrine->getManager()->flush();
+        return $this->redirectToRoute("formulaire");
     }
 }

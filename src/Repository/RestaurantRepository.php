@@ -44,6 +44,7 @@ class RestaurantRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+// Afficher les 6 derniers restaurants crée :
 
     public function DerniersRestaurants (int $limit){
         $entityManager = $this->getEntityManager();
@@ -55,6 +56,8 @@ class RestaurantRepository extends ServiceEntityRepository
         )->setMaxResults($limit);
         return $query->getResult();
     }
+
+// Afficher la valeur moyenne de la note d'un restaurant
 
     public function ValeurMoyenne (Restaurant $restaurant){
         $entityManager = $this->getEntityManager();
@@ -69,6 +72,9 @@ class RestaurantRepository extends ServiceEntityRepository
         );
         return $query->getSingleScalarResult();
     }
+
+// Afficher les 3 top meilleurs restaurants
+
     public function meilleurs(){
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
@@ -82,6 +88,9 @@ class RestaurantRepository extends ServiceEntityRepository
         )->setMaxResults(3);
         return $query->getResult();
     }
+
+
+
     public function restaurantsDetails(){
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}all restaurants{% endblock %}
+
+{% block body %}
+
+
+    <form action="{{ path("restaurant.name") }}" method="POST"><br>
+       city : <br><select name="cityId" id="">
+            {% for city in cities %}
+                <option value="{{ city.id }}">{{ city.name }}</option>
+            {% endfor %}
+        </select><br>
+        name : <br><input type="text" name="name" id=""><br>
+        description : <br><input type="text" name="description" id=""><br><br>
+        <input type="submit" value="create restaurant" style="background-color: #5eb5e0">
+    </form>
+
+{% endblock %}

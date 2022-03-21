@@ -37,17 +37,6 @@ class Restaurant
      */
     private $city_id;
 
-    /**
-     * @param $id
-     */
-    public function __construct($id)
-    {
-        $this->id = $id;
-        $this->createdAt= new \DateTime('now');
-
-    }
-
-
     public function getId(): ?int
     {
         return $this->id;
